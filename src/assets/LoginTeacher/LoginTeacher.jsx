@@ -1,14 +1,23 @@
-import React, { useState } from 'react';
-import { InputField } from './components/InputField';
-import styles from './LoginTeacher.module.css';
+import React, { useState } from "react";
+import { InputField } from "./components/InputField";
+import { useNavigate } from "react-router-dom"; // Import du hook useNavigate
+import styles from "./LoginTeacher.module.css";
 
-export const LoginTeacher = () =>{
-
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
+export const LoginTeacher = () => {
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const navigate = useNavigate(); // Initialisation du hook useNavigate
 
   const handleSubmit = (e) => {
     e.preventDefault();
+
+    // Logique de validation ou d'authentification
+    if (email && password) {
+      // Redirige vers la page Classes après un login réussi
+      navigate("/classes");
+    } else {
+      alert("Veuillez remplir tous les champs !");
+    }
   };
 
   return (
@@ -67,7 +76,7 @@ export const LoginTeacher = () =>{
             </button>
 
             <div className={styles.registerPrompt}>
-              Don't have an account?{' '}
+              Don't have an account?{" "}
               <span className={styles.registerLink}>Register</span>
             </div>
           </form>

@@ -33,7 +33,7 @@ export const Dashboard = () => {
             <h1 className={styles.greeting}>Hello Evano 👋🏼,</h1>
             <SearchBar />
           </header>
-          
+
           <section className={styles.statsSection}>
             <StatCard
               icon="https://cdn.builder.io/api/v1/image/assets/TEMP/fc59ec3a6b4b5f238e2d44da0adae095fe57a3bd9abf181ecd754aab4aad113f?placeholderIfAbsent=true&apiKey=5a8b57bfa53549b49da7230dbeeac956"
@@ -57,14 +57,14 @@ export const Dashboard = () => {
                 <button className={styles.addButton} aria-label="Add new teacher">+</button>
               </div>
             </div>
-            
+
             <div className={styles.teachersTable}>
               <div className={styles.tableHeader}>
                 <div className={styles.columnHeader}>Teacher Name</div>
                 <div className={styles.columnHeader1}>Phone Number</div>
                 <div className={styles.columnHeader2}>Actions</div>
               </div>
-              
+
               {teacherData.map((teacher, index) => (
                 <TeacherCard
                   key={index}

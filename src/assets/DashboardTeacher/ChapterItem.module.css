@@ -1,0 +1,27 @@
+.chapterContainer {
+    display: flex;
+    gap: 18px;
+    font-size: 20px;
+    color: rgba(0, 0, 0, 1);
+    text-align: center;
+    line-height: 1;
+    margin-top: 72px;
+}
+
+@media (max-width: 991px) {
+    .chapterContainer {
+        margin-top: 40px;
+    }
+}
+
+.chapterIcon {
+    aspect-ratio: 1.57;
+    object-fit: contain;
+    object-position: center;
+    width: 47px;
+}
+
+.chapterTitle {
+    flex-basis: auto;
+    margin: auto 0;
+}

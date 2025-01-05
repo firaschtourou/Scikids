@@ -1,0 +1,147 @@
+.card {
+    border-radius: 30px;
+    display: flex;
+    flex-direction: column;
+    align-items: start;
+    padding: 27px 46px;
+    width: 70%;
+    height: 90px;
+}
+
+.cardBlue {
+    background-color: rgba(74, 163, 223, 1);
+}
+
+.cardPink {
+    background-color: rgba(255, 102, 178, 1);
+}
+
+.cardGreen {
+    background-color: rgba(90, 215, 143, 1);
+}
+
+.header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: 100%;
+    color: #fff;
+}
+
+.title {
+    font: 700 15px Inter, sans-serif;
+    margin-left: 11px;
+}
+
+.stats {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    color: #fff;
+    text-align: center;
+    margin: 32px 0 0 25px;
+    font: 400 12px Karla, sans-serif;
+}
+
+.progressContainer {
+    border-radius: 30px;
+    background-color: rgba(0, 0, 0, 0.3);
+    align-self: stretch;
+    display: flex;
+    margin-top: 14px;
+    flex-direction: column;
+    align-items: start;
+}
+
+.progressBar {
+    border-radius: 30px;
+    background-color: rgba(217, 217, 217, 1);
+    display: flex;
+    width: 137px;
+    height: 7px;
+}
+
+.divider {
+    aspect-ratio: 0.08;
+    object-fit: contain;
+    object-position: center;
+    width: 1px;
+    align-self: stretch;
+}
+
+@media (max-width: 1180px) {
+    .card {
+        width: 85%;
+        /* Prend toute la largeur de l'écran */
+        margin: 10px 0;
+        /* Réduit les marges */
+        padding: 21px;
+        /* Réduit les espaces internes */
+    }
+}
+
+/* Responsivité pour les tablettes (768px - 991px) */
+@media (max-width: 991px) {
+    .card {
+        width: 80%;
+        /* Adapte la largeur */
+        margin: 20px auto;
+        /* Centre la carte */
+        padding: 20px 30px;
+        /* Réduit les marges */
+        height: auto;
+        /* Ajuste la hauteur automatiquement */
+    }
+
+    .title {
+        font-size: 14px;
+        /* Réduit légèrement la taille de la police */
+        margin-left: 5px;
+        /* Réduit l'espacement */
+    }
+
+    .stats {
+        gap: 10px;
+        /* Réduit l'espace entre les éléments */
+        margin: 20px 0 0 10px;
+        /* Adapte les marges */
+    }
+
+    .progressBar {
+        width: 100%;
+        /* Barre de progression prend toute la largeur */
+    }
+}
+
+/* Responsivité pour les petits écrans (<768px) */
+@media (max-width: 768px) {
+    .card {
+        width: 90%;
+        /* Prend toute la largeur de l'écran */
+        margin: 10px 0;
+        /* Réduit les marges */
+        padding: 15px;
+        /* Réduit les espaces internes */
+    }
+
+    .title {
+        font-size: 14px;
+        /* Réduit légèrement la taille de la police */
+        margin-left: 5px;
+        /* Réduit l'espacement */
+    }
+
+    .stats {
+        gap: 10px;
+        /* Réduit l'espace entre les éléments */
+        margin: 20px 0 0 10px;
+        /* Adapte les marges */
+    }
+
+    .progressBar {
+        width: 100%;
+        /* Barre de progression prend toute la largeur */
+    }
+
+
+}
