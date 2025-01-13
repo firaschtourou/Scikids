@@ -1,0 +1,97 @@
+/* Styling the entire header */
+.landingPage{
+  z-index: 2;
+}
+.header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background-color: rgba(255, 102, 178, 1); /* Light pink background for the header */
+    color: white; /* White text color */
+    font-family: 'Comic Sans MS', 'Comic Sans', sans-serif; /* Comic font style */
+    padding: 10px 20px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    
+  }
+  
+  /* Styling the logo */
+  .Logo {
+    height: 60px;
+    object-fit: contain;
+    z-index: 2; 
+  }
+  
+  /* Styling the navigation menu */
+  .navbar {
+    flex-grow: 1;
+    display: flex;
+    justify-content: center;
+    z-index: 2; 
+  }
+  
+  .navbar ul {
+    list-style: none;
+    display: flex;
+    gap: 50px; /* Space between items */
+    margin: 0;
+    padding: 0;
+    z-index: 2; 
+  }
+  
+  .navbar .item {
+    font-size: 25px;
+    gap: 25px;
+    cursor: pointer;
+    transition: color 0.3s ease;
+    z-index: 2; 
+  }
+  
+  .navbar .item:hover {
+    color: #f1c40f; 
+    z-index: 2; /* Highlight text on hover */
+  }
+  
+  /* Styling the social media icons */
+  .icon {
+    display: flex;
+    gap: 15px;
+    z-index: 2;  /* Space between icons */
+  }
+  
+  .icon img {
+    height: 40px;
+    width: 40px;
+    border-radius: 50%;
+    cursor: pointer;
+    transition: transform 0.3s ease;
+    z-index: 2; 
+  }
+  
+  .icon img:hover {
+    transform: scale(1.1);
+    z-index: 2;  /* Slightly increase size on hover */
+  }
+  
+  /* Ensuring responsiveness */
+  @media (max-width: 768px) {
+    .header {
+      flex-wrap: wrap;
+      text-align: center;
+    }
+  
+    .navbar {
+      order: 2;
+      margin: 10px 0;
+    }
+  
+    .icon {
+      order: 3;
+      justify-content: center;
+    }
+  
+    .Logo {
+      order: 1;
+      margin-bottom: 10px;
+    }
+  }
+ 
