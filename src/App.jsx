@@ -7,7 +7,7 @@ import ListeClasses from './assets/DashboardTeacher/ListeDeClasse'
 import ADDChild from './assets/DashboardTeacher/ajoutEnfant'
 import CoursTeacher from './assets/DashboardTeacher/cours'
 import Quiz from './assets/DashboardTeacher/Quiz'
-import Kid from './assets/KidsPages/KidsPages/QuizKid/DashboradQuiz'
+import Kid from './assets/LandingPage/LandingPage/AllLandingPAge/AllLandingPage'
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import './App.css'
 

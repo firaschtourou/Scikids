@@ -20,19 +20,19 @@ const AllLandingPage = () => {
     <div className='Contain'>
       <Header />
       <Welcome />
-     
-      <Discover/>
+
+      <Discover />
       <Classes />
       <div className='sdgs'>
-      <SDGS />
+        <SDGS />
       </div>
-    
+
       <Partners />
 
       <ClientsSection />
-  <Gallery />
+      <Gallery />
       <GetInTouch />
-     <Footer />
+      <Footer />
     </div>
   )
 }

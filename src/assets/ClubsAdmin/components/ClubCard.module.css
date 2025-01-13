@@ -1,0 +1,49 @@
+.clubCard {
+    display: flex;
+    width: 80%;
+    justify-content: space-between;
+    align-items: center;
+    padding: 15px 0;
+    font: 500 14px Poppins, sans-serif;
+    letter-spacing: -0.14px;
+    margin-top: -3%;
+  }
+  
+  .clubName {
+    color: rgba(41, 45, 50, 1);
+    margin: auto 0;
+    margin-left: 15%;
+    font-size: 16px;
+  }
+  
+  .actionButtons {
+    display: flex;
+    gap: 48px;
+    
+  }
+  
+  .modifyButton {
+    border-radius: 4px;
+    background-color: rgba(22, 192, 152, 0.38);
+    padding: 4px 12px;
+    color: rgba(0, 135, 103, 1);
+    border: 1px solid rgba(0, 176, 135, 1);
+    margin-left: 56%;
+  }
+  
+  .deleteButton {
+    border-radius: 4px;
+    background-color: rgba(255, 197, 197, 1);
+    padding: 4px 12px;
+    color: rgba(223, 4, 4, 1);
+    border: 1px solid rgba(223, 4, 4, 1);
+    margin-left: -15%;
+  }
+  
+  .divider {
+    height: 1px;
+    border: 1px solid rgba(238, 238, 238, 1);
+    width: 100%;
+    margin: 10px 0;
+    margin-top: 0%;
+  }

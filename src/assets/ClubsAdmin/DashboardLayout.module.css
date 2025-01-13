@@ -1,0 +1,145 @@
+.dashboardContainer {
+  border-radius: 30px;
+  background-color: rgba(74, 163, 223, 1);
+  padding: 22px 22px 22px 40px;
+  overflow: hidden;
+  height: 100vh;
+}
+
+.sidebarContent {
+  display: flex;
+  gap: 20px;
+}
+
+.sidebar {
+  width: 16%;
+  color: #fff;
+  margin-top: -8%;
+}
+
+.profileContainer {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  color: #fff;
+  font: 600 25px/1.4 Poppins, -apple-system, Roboto, Helvetica, sans-serif;
+  margin-top: 49px;
+}
+
+.profileImage {
+  width: 94px;
+  height: 95px;
+  border-radius: 0;
+}
+
+.userName {
+  font-size: 30px;
+  font-weight: 600;
+  margin-top: 47px;
+}
+
+.userEmail {
+  font-size: 17px;
+  font-weight: 400;
+  line-height: 2;
+  margin-top: 5px;
+}
+
+.navigation {
+  display: flex;
+  flex-direction: column;
+  gap: 30px;
+  margin-top: 115px;
+}
+
+.navButton {
+  background: none;
+  border: none;
+  color: #ffffff;
+  font-size: 20px;
+  font-weight: 600;
+  text-align: left;
+  cursor: pointer;
+}
+
+.mainContent {
+  width: 84%;
+  background-color:#f5f5f5;
+  border-radius: 30px;
+  padding: 0px 10px 10px;
+  height: 100vh;
+}
+
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-family: Poppins, sans-serif;
+}
+
+.greeting {
+  color: #000;
+  font-size: 24px;
+  font-weight: 400;
+  margin-left: 3%;
+}
+  
+  .clubsContainer {
+    border-radius: 30px;
+    background-color: rgba(255, 255, 255, 1);
+    box-shadow: 0px 10px 60px rgba(226, 236, 249, 0.5);
+    margin-top: 5%;
+    padding: 50px 50px 50px 50px;
+    margin-left: 20%;
+    margin-right: 20%;
+  }
+  
+  .clubsHeader {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 40px;
+    margin-top: -4%;
+    margin-left: 15%;
+  }
+  
+  .clubsTitle {
+    color: rgba(0, 0, 0, 1);
+    font-size: 22px;
+    font-weight: 600;
+    letter-spacing: -0.22px;
+    font-family: Poppins, sans-serif;
+    margin-left: -10%;
+   
+  }
+  
+  .addButton {
+    border-radius: 10px;
+    background-color: rgba(249, 251, 255, 1);
+    font-size: 32px;
+    color: rgba(128, 127, 127, 1);
+    padding: 0 6px;
+    border: none;
+    cursor: pointer;
+    margin-right: 2%;
+  }
+  
+  @media (min-width: 768px) and (max-width: 1024px) {
+    .dashboardContainer {
+      padding: 10px 15px;
+    }
+  
+    .sidebar {
+      width: 20%;
+    }
+  
+    .mainContent {
+      width: 80%;
+    }
+  
+    
+    .clubsContainer {
+      margin-top: 40px;
+      padding: 20px;
+    }
+  }
