@@ -2,7 +2,7 @@
     border-radius: 30px;
     background-color: rgba(90, 215, 143, 1);
     padding: 22px 22px 22px 40px;
-    overflow: hidden;
+   
 
 }
 
@@ -70,6 +70,8 @@
     border-radius: 30px;
     padding: 20px 10px 10px;
     padding-bottom: 300px;
+    overflow-y: auto; /* Défilement vertical */
+    max-height: calc(100vh - 100px);
 }
 
 .header {

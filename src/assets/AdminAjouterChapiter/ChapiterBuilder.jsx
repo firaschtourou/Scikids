@@ -1,212 +1,263 @@
 import React, { useState } from "react";
-//import styles from './Dashboard.module.css';
+import axios from "axios";
+import "./chapiterbuilder.css"; // Importez le fichier CSS
 
+const ChapterBuilder = () => {
+  const [chapters, setChapters] = useState([]);
+  const [className, setClassName] = useState("");
 
-const ChapiterBuilder = () => {
-    const [quiz, setQuiz] = useState({ name: "", questions: [] });
+  const addChapter = () => {
+    setChapters((prevChapters) => [
+      ...prevChapters,
+      {
+        name: "",
+        contentBlocks: [{ type: "", title: "", text: "", videoFile: null }],
+      },
+    ]);
+  };
 
-    const addQuestion = () => {
-        setQuiz((prevQuiz) => ({
-            ...prevQuiz,
-            questions: [
-                ...prevQuiz.questions,
-                { type: "text", text: "", options: [], correctOption: null },
-            ],
-        }));
-    };
+  const updateChapterName = (index, value) => {
+    setChapters((prevChapters) => {
+      const updatedChapters = [...prevChapters];
+      updatedChapters[index].name = value;
+      return updatedChapters;
+    });
+  };
 
-    const updateQuestionText = (index, text) => {
-        setQuiz((prevQuiz) => {
-            const updatedQuestions = [...prevQuiz.questions];
-            updatedQuestions[index].text = text;
-            return { ...prevQuiz, questions: updatedQuestions };
-        });
-    };
+  const addContentBlock = (chapterIndex) => {
+    setChapters((prevChapters) => {
+      const updatedChapters = [...prevChapters];
+      updatedChapters[chapterIndex].contentBlocks.push({
+        type: "",
+        title: "",
+        text: "",
+        videoFile: null,
+      });
+      return updatedChapters;
+    });
+  };
 
-    const addOption = (index, type) => {
-        setQuiz((prevQuiz) => {
-            const updatedQuestions = [...prevQuiz.questions];
-            updatedQuestions[index].options.push({ text: "", isCorrect: false, type });
-            return { ...prevQuiz, questions: updatedQuestions };
-        });
-    };
+  const removeContentBlock = (chapterIndex, blockIndex) => {
+    if (window.confirm("Êtes-vous sûr de vouloir supprimer cette partie ?")) {
+      setChapters((prevChapters) => {
+        const updatedChapters = [...prevChapters];
+        updatedChapters[chapterIndex].contentBlocks.splice(blockIndex, 1);
+        return updatedChapters;
+      });
+    }
+  };
 
-    const updateOptionText = (qIndex, oIndex, text) => {
-        setQuiz((prevQuiz) => {
-            const updatedQuestions = [...prevQuiz.questions];
-            updatedQuestions[qIndex].options[oIndex].text = text;
-            return { ...prevQuiz, questions: updatedQuestions };
-        });
-    };
+  const updateContentBlock = (chapterIndex, blockIndex, field, value) => {
+    setChapters((prevChapters) => {
+      const updatedChapters = [...prevChapters];
+      updatedChapters[chapterIndex].contentBlocks[blockIndex][field] = value;
+      return updatedChapters;
+    });
+  };
 
-    const toggleCorrectOption = (qIndex, oIndex) => {
-        setQuiz((prevQuiz) => {
-            const updatedQuestions = [...prevQuiz.questions];
-            if (updatedQuestions[qIndex].options[oIndex].type === "radio") {
-                updatedQuestions[qIndex].options.forEach((option) => {
-                    option.isCorrect = false;
-                });
-            }
-            updatedQuestions[qIndex].options[oIndex].isCorrect =
-                !updatedQuestions[qIndex].options[oIndex].isCorrect;
-            return { ...prevQuiz, questions: updatedQuestions };
-        });
-    };
+  const updateBlockType = (chapterIndex, blockIndex, type) => {
+    setChapters((prevChapters) => {
+      const updatedChapters = [...prevChapters];
+      updatedChapters[chapterIndex].contentBlocks[blockIndex].type = type;
+      return updatedChapters;
+    });
+  };
 
-    const removeQuestion = (index) => {
-        setQuiz((prevQuiz) => {
-            const updatedQuestions = [...prevQuiz.questions];
-            updatedQuestions.splice(index, 1);
-            return { ...prevQuiz, questions: updatedQuestions };
-        });
-    };
+  const handleVideoUpload = (chapterIndex, blockIndex, file) => {
+    setChapters((prevChapters) => {
+      const updatedChapters = [...prevChapters];
+      updatedChapters[chapterIndex].contentBlocks[blockIndex].videoFile = file;
+      return updatedChapters;
+    });
+  };
 
-    const handleSave = () => {
-        if (!quiz.name.trim()) {
-            alert("Quiz name is required!");
-            return;
-        }
+  const removeChapter = (index) => {
+    if (window.confirm("Êtes-vous sûr de vouloir supprimer ce chapitre ?")) {
+      setChapters((prevChapters) => {
+        const updatedChapters = [...prevChapters];
+        updatedChapters.splice(index, 1);
+        return updatedChapters;
+      });
+    }
+  };
 
-        if (quiz.questions.length === 0) {
-            alert("Add at least one question before saving.");
-            return;
-        }
-
-        console.log("Quiz saved:", quiz);
-        alert("Quiz saved successfully!");
-    };
-
-    return (
-        <div style={{ padding: "20px", fontFamily: "Arial" }}>
-            <div style={{ marginBottom: "20px" }}>
-                <label>
-                    <strong>Content *</strong>
-                </label>
-                <input
-                className={styles.formField}
-                    type="text"
-                    value={quiz.name}
-                    onChange={(e) => setQuiz({ ...quiz, name: e.target.value })}
-                    placeholder="Enter quiz name"
-                    aria-label="Quiz Name"
-                    style={{
-                        display: "block",
-                        width: "100%",
-                        padding: "8px",
-                        margin: "10px 0",
-                        borderRadius: "4px",
-                        border: "1px solid #ccc",
-                    }}
-                />
-            </div>
-
-            {quiz.questions.map((question, qIndex) => (
-                <div
-                    key={qIndex}
-                    style={{
-                        marginBottom: "20px",
-                        padding: "15px",
-                        border: "1px solid #ddd",
-                        borderRadius: "6px",
-                        background: "#f9f9f9",
-                    }}
-                >
-                    <div>
-                        <input
-                        className={styles.formField}
-                            type="text"
-                            value={question.text}
-                            onChange={(e) => updateQuestionText(qIndex, e.target.value)}
-                            placeholder={`Question ${qIndex + 1}`}
-                            aria-label={`Question ${qIndex + 1}`}
-                            style={{
-                                display: "block",
-                                width: "100%",
-                                padding: "8px",
-                                margin: "10px 0",
-                                borderRadius: "4px",
-                                border: "1px solid #ccc",
-                            }}
-                        />
-                    </div>
-                    {question.options.map((option, oIndex) => (
-                        <div key={oIndex} style={{ display: "flex", alignItems: "center" }}>
-                            <input
-                            
-                                type={option.type}
-                                checked={option.isCorrect}
-                                onChange={() => toggleCorrectOption(qIndex, oIndex)}
-                                aria-label={`Correct option for Question ${qIndex + 1}, Option ${oIndex + 1}`}
-                                style={{ marginRight: "10px" }}
-                            />
-                            <input
-                            className={styles.formField}
-                                type="text"
-                                value={option.text}
-                                onChange={(e) => updateOptionText(qIndex, oIndex, e.target.value)}
-                                placeholder="Option text"
-                                aria-label={`Option ${oIndex + 1}`}
-                                style={{
-                                    flex: 1,
-                                    padding: "8px",
-                                    margin: "5px 0",
-                                    borderRadius: "4px",
-                                    border: "1px solid #ccc",
-                                }}
-                            />
-                        </div>
-                    ))}
-                    <div style={{ marginTop: "10px" }}>
-                        <button onClick={() => addOption(qIndex, "radio")}>Add Radio</button>
-                        <button
-                            onClick={() => addOption(qIndex, "checkbox")}
-                            style={{ marginLeft: "10px" }}
-                        >
-                            Add Checkbox
-                        </button>
-                        <button
-                            onClick={() => removeQuestion(qIndex)}
-                            style={{
-                                marginLeft: "10px",
-                                background: "red",
-                                color: "white",
-                            }}
-                        >
-                            Remove Question
-                        </button>
-                    </div>
-                </div>
-            ))}
-
-            <div style={{ marginTop: "20px" }}>
-                <button
-                    onClick={addQuestion}
-                    style={{
-                        padding: "10px 15px",
-                        borderRadius: "4px",
-                        border: "none",
-                        background: "#28a745",
-                        color: "white",
-                    }}
-                >
-                    Add Question
-                </button>
-                <button
-                    onClick={handleSave}
-                    style={{
-                        marginLeft: "10px",
-                        padding: "10px 15px",
-                        borderRadius: "4px",
-                        border: "none",
-                        background: "#007bff",
-                        color: "white",
-                    }}
-                >
-                    Save
-                </button>
-            </div>
-        </div>
+  const handleSave = async () => {
+    const isAnyChapterFilled = chapters.some(
+      (chapter) => chapter.name.trim() !== "" && chapter.contentBlocks.some((block) => block.title.trim() !== "")
     );
+  
+    if (!isAnyChapterFilled) {
+      alert("Vous devez remplir au moins un chapitre avant de sauvegarder.");
+      return;
+    }
+  
+    try {
+      const formData = new FormData();
+      formData.append("className", className);
+      formData.append("chapterName", chapters[0].name);
+      formData.append("title", "Titre du contenu pédagogique");
+
+      const contents = chapters.flatMap((chapter) =>
+        chapter.contentBlocks.map((block) => ({
+          title: block.title,
+          paragraph: block.text,
+          video: block.videoFile ? block.videoFile.name : null,
+        }))
+      );
+      formData.append("contents", JSON.stringify(contents));
+
+      chapters.forEach((chapter) => {
+        chapter.contentBlocks.forEach((block) => {
+          if (block.videoFile) {
+            formData.append("videos", block.videoFile);
+          }
+        });
+      });
+
+      const response = await axios.post("http://localhost:5000/api/pedagogical-content/add", formData, {
+        headers: {
+          "Content-Type": "multipart/form-data",
+        },
+      });
+
+      alert("Chapitres sauvegardés avec succès !");
+      console.log("Réponse du serveur :", response.data);
+    } catch (error) {
+      console.error("Erreur lors de l'enregistrement :", error);
+      alert("Erreur lors de l'enregistrement des chapitres.");
+    }
+  };
+
+  return (
+    <div className="chapter-builder-container">
+      <h2>Créer des Chapitres</h2>
+      <input
+        type="text"
+        value={className}
+        onChange={(e) => setClassName(e.target.value)}
+        placeholder="Nom de la classe"
+        className="class-name-input"
+      />
+      <button type="button" onClick={addChapter} className="add-chapter-button">
+        Ajouter un Chapitre
+      </button>
+
+      {chapters.map((chapter, chapterIndex) => (
+        <div key={chapterIndex} className="chapter-container">
+          <h3>Chapitre {chapterIndex + 1}</h3>
+          <label>
+            <strong>Nom du chapitre *</strong>
+          </label>
+          <input
+            type="text"
+            value={chapter.name}
+            onChange={(e) => updateChapterName(chapterIndex, e.target.value)}
+            placeholder="Saisissez le nom du chapitre"
+            className="chapter-name-input"
+          />
+
+          {chapter.contentBlocks.map((block, blockIndex) => (
+            <div key={blockIndex} className="content-block-container">
+              <label>
+                <strong>Titre de la partie *</strong>
+              </label>
+              <input
+                type="text"
+                value={block.title}
+                onChange={(e) =>
+                  updateContentBlock(chapterIndex, blockIndex, "title", e.target.value)
+                }
+                placeholder="Saisissez le titre de la partie"
+                className="content-block-title-input"
+              />
+
+              <label>
+                <strong>Choisissez le type de contenu</strong>
+              </label>
+              <select
+                value={block.type}
+                onChange={(e) =>
+                  updateBlockType(chapterIndex, blockIndex, e.target.value)
+                }
+                className="content-type-select"
+              >
+                <option value="">Sélectionnez</option>
+                <option value="text">Texte</option>
+                <option value="video">Vidéo</option>
+                <option value="both">Les deux</option>
+              </select>
+
+              {(block.type === "text" || block.type === "both") && (
+                <>
+                  <label>
+                    <strong>Texte</strong>
+                  </label>
+                  <textarea
+                    value={block.text}
+                    onChange={(e) =>
+                      updateContentBlock(chapterIndex, blockIndex, "text", e.target.value)
+                    }
+                    placeholder="Texte du bloc"
+                    rows="3"
+                    className="content-block-textarea"
+                  />
+                </>
+              )}
+
+              {(block.type === "video" || block.type === "both") && (
+                <>
+                  <label>
+                    <strong>Vidéo</strong>
+                  </label>
+                  <input
+                    type="file"
+                    accept="video/*"
+                    onChange={(e) =>
+                      handleVideoUpload(chapterIndex, blockIndex, e.target.files[0])
+                    }
+                    className="video-upload-input"
+                  />
+                  {block.videoFile && (
+                    <p className="video-file-name">
+                      <em>Vidéo importée : {block.videoFile.name}</em>
+                    </p>
+                  )}
+                </>
+              )}
+
+              <button
+                type="button"
+                onClick={() => removeContentBlock(chapterIndex, blockIndex)}
+                className="remove-content-block-button"
+              >
+                Supprimer cette partie
+              </button>
+            </div>
+          ))}
+
+          <button
+            type="button"
+            onClick={() => addContentBlock(chapterIndex)}
+            className="add-content-block-button"
+          >
+            Ajouter un Bloc
+          </button>
+
+          <button
+            type="button"
+            onClick={() => removeChapter(chapterIndex)}
+            className="remove-chapter-button"
+          >
+            Supprimer le Chapitre
+          </button>
+        </div>
+      ))}
+
+      <button type="button" onClick={handleSave} className="save-button">
+        Sauvegarder
+      </button>
+    </div>
+  );
 };
 
-export default ChapiterBuilder;
+export default ChapterBuilder;

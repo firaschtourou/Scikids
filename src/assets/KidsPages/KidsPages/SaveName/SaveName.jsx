@@ -1,30 +1,63 @@
-import React from "react";
-import { useNavigate } from "react-router-dom";
-import "./savename.css";
-import Kid from './Kid.png'
-import School from './School.png'
-import icon from './icon.png'
+import React, { useState } from "react";
+import { useNavigate, useLocation } from "react-router-dom";
+import axios from "axios";
+import style from './savename.module.css'; // Importation du fichier CSS en tant que module
+import Kid from './Kid.png';
+import School from './School.png';
+import icon from './icon.png';
 
 const SaveNamePage = () => {
   const navigate = useNavigate();
+  const location = useLocation();
+  const [name, setName] = useState("");
 
-  const handleSave = () => {
-    // Redirige vers la page Dashboard
-    navigate("/dashboard");
+  // Récupérer le matricule depuis l'état de navigation
+  const matricule = location.state?.matricule;
+
+  const handleVerify = async () => {
+    if (!name.trim()) {
+      alert("Veuillez entrer un nom valide.");
+      return;
+    }
+
+    try {
+      const response = await axios.post("http://localhost:5000/api/verify-name", { matricule, name });
+
+      if (response.data.success) {
+        // Si le nom correspond, naviguer vers le tableau de bord
+        navigate("/dashboard", { state: { matricule, name } });
+        alert('Nom vérifié avec succès. Bienvenue sur notre plateforme !');
+      } else {
+        alert('Le nom ne correspond pas à la matricule.');
+      }
+    } catch (error) {
+      alert(
+        error.response
+          ? error.response.data.message
+          : 'Erreur de connexion au serveur. Veuillez réessayer.'
+      );
+    }
   };
+
   return (
-    <div className="login-page">
-      <div className="background">
-        <img src={School} alt="School" className="school-image" />
-        <img src={Kid} alt="Character" className="character-image" />
+    <div className={style.loginPage}>
+      <div className={style.background}>
+        <img src={School} alt="School" className={style.schoolImage} />
+        <img src={Kid} alt="Character" className={style.characterImage} />
       </div>
-      <div className="login-card">
-        <div className="icon_bg">
-      <img src={icon} alt="Character" className="icon" />
-      </div>
-        <label htmlFor="matricule" className="Name-label">Your Name:</label>
-        <input type="text" id="matricule" className="matricule-input" />
-        <button className="login-button" onClick={handleSave}>Save</button>
+      <div className={style.loginCard}>
+        <div className={style.iconBg}>
+          <img src={icon} alt="Character" className={style.icon} />
+        </div>
+        <label htmlFor="name" className={style.nameLabel}>Your Name:</label>
+        <input
+          type="text"
+          id="name"
+          className={style.matriculeInput}
+          value={name}
+          onChange={(e) => setName(e.target.value)}
+        />
+        <button className={style.loginButton} onClick={handleVerify}>Vérifier</button>
       </div>
     </div>
   );

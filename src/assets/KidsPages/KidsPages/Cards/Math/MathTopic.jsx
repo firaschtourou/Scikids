@@ -2,6 +2,7 @@ import React from 'react';
 import CircleDecoration from './CircleDecoration';
 import './math.css';
 import science from './science.png';
+
 const decorations = [
   { width: '18px', height: '13px' },
   { width: '12px', height: '8px' },
@@ -13,9 +14,15 @@ const decorations = [
   { width: '34px', height: '25px' }
 ];
 
-const MathTopic = () => {
+// Tableau des classes de couleurs disponibles
+const cardColors = ['cardBlue', 'cardPink', 'cardGreen', 'cardyellow'];
+
+const MathTopic = ({ className, index }) => {
+  // Sélectionner une couleur en fonction de l'index
+  const cardColor = cardColors[index % cardColors.length];
+
   return (
-    <div className="topicContainermath">
+    <div className={`topicContainermath ${cardColor}`}>
       <div className="mainCardmath">
         <div className="decorationGroupmath">
           <CircleDecoration size={decorations[0]} />
@@ -25,11 +32,13 @@ const MathTopic = () => {
           </div>
         </div>
         <div className="contentWrappermath">
-          <h2 className="topicTitlemath">Mathimatical</h2>
+          <h2 className="topicTitlemath">{className}</h2>
           <div className="decorationWrappermath">
             <CircleDecoration size={decorations[3]} />
             <CircleDecoration size={decorations[4]} />
-            <div className='photomath'><img  src={science} alt='science' /> </div>
+            <div className='photomath'>
+              <img src={science} alt='science' />
+            </div>
           </div>
         </div>
       </div>

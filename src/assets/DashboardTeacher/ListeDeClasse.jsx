@@ -1,47 +1,80 @@
-import React from 'react';
-import { useParams, useNavigate } from "react-router-dom"; // Import de useNavigate
+import React, { useState, useEffect } from 'react';
+import { useParams, useNavigate } from "react-router-dom";
+import axios from 'axios'; // Importer axios
 import styles from './ListeDeClasse.module.css';
 import image from './Group 237658.png';
 
-const classDetailsData = {
-    "Classe 1ere": ["Mathématiques", "Physique", "Chimie"],
-    "Classe 4eme": ["Anglais", "Histoire", "Géographie"],
-    "Classe 5eme": ["Biologie", "Informatique", "Arts"],
-};
-
-const studentData = [
-    { name: "Karim Louati", matricule: "221025", levels: [1, 2, 3] },
-    { name: "Sarah Ahmed", matricule: "221026", levels: [2, 4, 5] },
-    { name: "Ali Ben Salem", matricule: "221027", levels: [1, 3] },
-];
-
-const levels = [
-    { id: 1, src: "https://cdn.builder.io/api/v1/image/assets/TEMP/195197072bd247cd53371282782b0ca906c71ef0b9590c6d0fa841fc9b004698?placeholderIfAbsent=true&apiKey=875c657f39b24f02b57f3f224a6dff5b" },
-    { id: 2, src: "https://cdn.builder.io/api/v1/image/assets/TEMP/7f0d1dd606d1488a6088db75e345d760d74d96eef9a2ba64c682cc2415b3c3b4?placeholderIfAbsent=true&apiKey=875c657f39b24f02b57f3f224a6dff5b" },
-    { id: 3, src: "https://cdn.builder.io/api/v1/image/assets/TEMP/195197072bd247cd53371282782b0ca906c71ef0b9590c6d0fa841fc9b004698?placeholderIfAbsent=true&apiKey=875c657f39b24f02b57f3f224a6dff5b" },
-    { id: 4, src: "https://cdn.builder.io/api/v1/image/assets/TEMP/7f0d1dd606d1488a6088db75e345d760d74d96eef9a2ba64c682cc2415b3c3b4?placeholderIfAbsent=true&apiKey=875c657f39b24f02b57f3f224a6dff5b" },
-    { id: 5, src: "https://cdn.builder.io/api/v1/image/assets/TEMP/9f818958868966380347da4c304f497ea4144b0aa12718da38e30b9c9e4a1f1a?placeholderIfAbsent=true&apiKey=875c657f39b24f02b57f3f224a6dff5b" },
-];
-
 function ListeClasses() {
-    const { className } = useParams(); // Récupérer le nom de la classe
-    const navigate = useNavigate(); // Initialiser le hook useNavigate
-    console.log("Paramètre className:", className);
+    
+    const navigate = useNavigate();
+    const [showAlert, setShowAlert] = useState(false);
+    const [matricule, setMatricule] = useState(null); // État pour stocker le matricule
+    const [students, setStudents] = useState([]); // État pour stocker les étudiants
+    const { className } = useParams();
+    
+    useEffect(() => {
+        const fetchStudents = async () => {
+            try {
+                const encodedClassName = encodeURIComponent(className); // Encoder le nom de la classe
+                const response = await axios.get(`http://localhost:5000/api/classes/get-students/${encodedClassName}`);
+                if (response.data.success) {
+                    setStudents(response.data.kids); // Stocker les enfants
+                } else {
+                    console.error('Erreur lors de la récupération des enfants');
+                }
+            } catch (error) {
+                console.error('Erreur lors de la récupération des enfants:', error);
+            }
+        };
+        fetchStudents();
+    }, [className]);
 
-    const subjects = classDetailsData[className] || []; // Détails de la classe
-
-    const handleShare = () => {
-        if (navigator.share) {
-            navigator.share({
-                title: document.title,
-                url: window.location.href,
-            });
+    const handleShare = async () => {
+        try {
+            const encodedClassName = encodeURIComponent(className);
+            const response = await axios.get(`http://localhost:5000/api/classes/get-matricule/${encodedClassName}`);
+            if (response.data.success) {
+                setMatricule(response.data.matricule);
+                setShowAlert(true);
+            } else {
+                alert('Erreur lors de la récupération du matricule');
+            }
+        } catch (error) {
+            console.error('Erreur lors de la récupération du matricule:', error);
+            alert('Erreur lors de la récupération du matricule');
+        }
+      };
+    const handleDelete = async (matricule) => {
+        console.log("Matricule de l'enfant à supprimer :", matricule);
+        if (!matricule) {
+            console.error("Matricule de l'enfant non défini.");
+            return;
+        }
+    
+        const confirmDelete = window.confirm("Êtes-vous sûr de vouloir supprimer cet enfant ?");
+        if (!confirmDelete) return;
+    
+        try {
+            const response = await axios.delete(`http://localhost:5000/api/classes/delete-students/${matricule}`);
+            console.log("Réponse du serveur :", response.data);
+            if (response.status === 200) {
+                setStudents(students.filter(student => student.matricule !== matricule));
+                alert("Enfant supprimé avec succès !");
+            } else {
+                console.error('Échec de la suppression de l\'enfant');
+            }
+        } catch (error) {
+            console.error('Erreur lors de la suppression de l\'enfant:', error);
         }
     };
 
-    const handleDelete = (matricule) => {
-        alert(`Supprimé l'élève avec le matricule : ${matricule}`);
+    const handleAlertCancel = () => {
+        setShowAlert(false);
+        setMatricule(null); // Réinitialiser le matricule
     };
+    const handleNavigation = (path) => {
+        navigate(path);
+      };
 
     return (
         <div className={styles.container}>
@@ -57,10 +90,14 @@ function ListeClasses() {
                     <nav className={styles.navigation}>
                         <button className={styles.navButton}>Classes</button>
                     </nav>
+                     <div className={styles.logoutWrapper2}>
+                                  <img loading="lazy" src="https://cdn.builder.io/api/v1/image/assets/TEMP/f40b0737096ea942cae585838c8391211c10fd76ca8769a843e190a644c18cb4?placeholderIfAbsent=true&apiKey=7ac1e9db73ba42ec81c04ec38ddf53cb" alt="Logout icon" className={styles.logoutIcon2} />
+                                  <span tabIndex="0" role="button" className={styles.logoutText2}  onClick={() => handleNavigation('/')}>Log out</span>
+                                </div>
                 </div>
                 <main className={styles.mainContent}>
                     <div className={styles.header}>
-                        <div className={styles.greeting}>Hello Evano 👋🏼,</div>
+                        <div className={styles.greeting}>Hello Teacher 👋🏼,</div>
                         <div className={styles.searchBox}>
                             <img
                                 loading="lazy"
@@ -75,57 +112,85 @@ function ListeClasses() {
                     <div className={styles.boutons}>
                         <button
                             className={styles.shareLink}
-                            onClick={handleShare}
-                            aria-label="Share this page"
-                            tabIndex={0}
-                        >
-                            Partager Lien
-                        </button>
-                        <button
-                            className={styles.shareLink}
                             onClick={() => navigate("/ajouter-enfant")}
                             aria-label="Ajouter Enfant"
                         >
                             Ajouter Enfant
                         </button>
-                        <button className={styles.shareLink} type="button" aria-label="Access Course" onClick={() => navigate("/cours")}>
-                            Cours
+                        <button
+  className={styles.shareLink}
+  type="button"
+  aria-label="Access Course"
+  onClick={() => {
+    console.log("className passé à la page Classes :", className); // Ajoutez ce log
+    navigate("/cours", { state: { className } }); // Passer className via l'état
+  }}
+>
+  Cours
+</button>
+                        <button
+                            className={styles.shareLink}
+                            onClick={handleShare}
+                        >
+                            Partager Lien
                         </button>
                     </div>
                     <div className={styles.container2}>
-                        <table className={styles.studentTable}>
-                            <thead className={styles.tableHeader}>
-                                <tr>
-                                    <th className={styles.headerCell}>Nom Prénom</th>
-                                    <th className={styles.headerCell}>Matricule</th>
-                                    <th className={styles.headerCell}>Niveaux du cours</th>
-                                    <th className={styles.headerCell}>Suppression</th>
-                                </tr>
-                            </thead>
-                            <tbody className={styles.tableBody}>
-                                {studentData.map((student) => (
-                                    <tr className={styles.studentRow} key={student.matricule}>
-                                        <td className={styles.studentCell}>{student.name}</td>
-                                        <td className={styles.studentCell}>{student.matricule}</td>
-                                        <td className={styles.levelIcons}>
-                                            {student.levels.map((level) => (
-                                                <img
-                                                    key={level}
-                                                    loading="lazy"
-                                                    src={levels.find((l) => l.id === level)?.src}
-                                                    className={styles.levelIcon}
-                                                    alt={`Level ${level}`}
-                                                />
-                                            ))}
-                                        </td>
-                                        <td className={styles.studentCell}>
-                                            <button onClick={() => handleDelete(student.matricule)}>Supprimer</button>
-                                        </td>
+                        <div className={styles.tableContainer}> {/* Conteneur avec défilement */}
+                            <table className={styles.studentTable}>
+                                <thead className={styles.tableHeader}>
+                                    <tr>
+                                        <th className={styles.headerCell}>Nom Prénom</th>
+                                        <th className={styles.headerCell}>Matricule</th>
+                                        <th className={styles.headerCell}>Suppression</th>
                                     </tr>
-                                ))}
-                            </tbody>
-                        </table>
+                                </thead>
+                                <tbody className={styles.tableBody}>
+                                    {students.map((student) => (
+                                        <tr className={styles.studentRow} key={student.matricule}>
+                                            <td className={styles.studentCell}>{student.name}</td>
+                                            <td className={styles.studentCell}>{student.matricule}</td>
+                                           
+                                            <td className={styles.studentCell}>
+                                                <button onClick={() => handleDelete(student.matricule)}>Supprimer</button>
+                                            </td>
+                                        </tr>
+                                    ))}
+                                </tbody>
+                            </table>
+                        </div>
                     </div>
+                    {showAlert && (
+                        <div style={{
+                            position: "fixed",
+                            top: "50%",
+                            left: "50%",
+                            transform: "translate(-50%, -50%)",
+                            background: "#fff",
+                            padding: "50px",
+                            boxShadow: "0 4px 8px rgba(0, 0, 0, 0.2)",
+                            borderRadius: "10px",
+                            zIndex: 1000,
+                        }}>
+                            <button
+                                onClick={handleAlertCancel}
+                                style={{
+                                    position: "absolute",
+                                    top: "10px",
+                                    right: "10px",
+                                    background: "transparent",
+                                    border: "none",
+                                    fontSize: "20px",
+                                    cursor: "pointer",
+                                    color: "#888",
+                                }}
+                            >
+                                X
+                            </button>
+                            <h3>Matricule de la classe {className}</h3>
+                            <p>{matricule}</p> {/* Afficher le matricule ici */}
+                        </div>
+                    )}
                 </main>
             </div>
         </div>

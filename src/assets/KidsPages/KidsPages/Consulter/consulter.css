@@ -180,6 +180,7 @@ html, body {
   .circleDecoration1 {
     background-color: rgb(87, 209, 202);
     border-radius: 50%;
+    font-size: 16px;
   }
   
   .cardTitle1 {

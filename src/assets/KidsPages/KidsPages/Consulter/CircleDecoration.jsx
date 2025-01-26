@@ -1,10 +1,10 @@
 import React from 'react';
-import  './consulter.css';
+import styles from './consulter.module.css';
 
 export const CircleDecoration = ({ size, className }) => {
   return (
-    <div 
-      className={`${"circleDecoration1"} ${className}`} 
+    <div
+      className={`${styles.circleDecoration1} ${className}`}
       style={{ width: size, height: size }}
       aria-hidden="true"
     />

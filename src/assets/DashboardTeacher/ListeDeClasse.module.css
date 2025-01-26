@@ -47,6 +47,23 @@
     margin-top: 5px;
 }
 
+.logoutWrapper2 {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    margin-top: 280px;
+    font-family: Poppins, sans-serif;
+    font-weight: 500;
+    cursor: pointer;
+    margin-right: 30px;
+  
+  }
+  
+  .logoutIcon2 {
+    width: 31px;
+    aspect-ratio: 1;
+  }
+
 .navigation {
     display: flex;
     flex-direction: column;
@@ -122,6 +139,7 @@
     display: flex;
     justify-content: space-between;
     margin-top: 60px;
+    margin-bottom: -100px;
 }
 
 .shareLink {
@@ -151,19 +169,26 @@
     justify-content: center;
     align-items: center;
     width: 100%;
-    max-width: 100%;
     margin: 0 auto;
-    overflow: hidden;
+    overflow: auto;
+    padding: 10px;
+    box-sizing: border-box;
+}
+
+.tableContainer {
+    max-height: 400px; /* Hauteur maximale pour le défilement */
+    overflow-y: auto; /* Active le défilement vertical */
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    margin-top: 150px;
+    width: 100%;
 }
 
 .studentTable {
-    display: block;
-    overflow-x: auto;
-    width: 80%;
-    margin: 0 auto;
+    width: 100%;
+    max-width: 1200px;
     border-collapse: collapse;
-    margin-top: 50px;
-    margin-bottom: 80px;
+    margin: 0 auto;
 }
 
 .tableHeader .headerCell,
@@ -177,11 +202,8 @@
     display: table-cell;
     font: 400 16px Open Sans, sans-serif;
     word-wrap: break-word;
-    /* Casse les mots longs */
     overflow: hidden;
-    /* Cache le texte qui dépasse */
     text-overflow: ellipsis;
-    /* Ajoute des points de suspension si le texte est trop long */
 }
 
 .tableHeader .headerCell {
@@ -224,7 +246,13 @@ button:hover {
     background-color: rgb(24, 116, 62);
 }
 
-/* Responsivité pour les écrans moyens (Tablettes et petites résolutions) */
+@media (max-width: 1180px) {
+    .mainContent {
+        width: 80%;
+        height: auto;
+    }
+}
+
 @media (max-width: 991px) {
     .headerCell {
         padding: 0 20px;
@@ -245,7 +273,6 @@ button:hover {
     }
 }
 
-/* Responsivité pour les Tablettes (768px - 991px) */
 @media (max-width: 991px) {
     .container {
         max-width: 100%;
@@ -259,6 +286,7 @@ button:hover {
     .mainContent {
         width: 75%;
         margin-left: -20px;
+        height: 90vh;
     }
 
     .searchBox {
@@ -268,9 +296,17 @@ button:hover {
     .title {
         margin-top: 40px;
     }
+
+    .logoutWrapper1 {
+        margin-top: 600px;
+    }
+
+    .studentTable {
+        width: 100%;
+        margin-top: -500px;
+    }
 }
 
-/* Responsivité pour les petits écrans (<768px) */
 @media (max-width: 768px) {
     .sidebarContent {
         flex-direction: column;
@@ -286,8 +322,7 @@ button:hover {
     }
 
     .mainContent {
-        width: 100%;
-        padding: 10px;
+        width: 90%;
     }
 
     .header {
@@ -304,5 +339,20 @@ button:hover {
     .shareLink {
         width: 80%;
         margin-bottom: 15px;
+    }
+
+    .studentTable {
+        width: 100%;
+        margin-top: -900px;
+    }
+
+    .tableHeader .headerCell,
+    .studentRow .studentCell {
+        font-size: 12px;
+        padding: 6px 10px;
+    }
+
+    .levelIcons {
+        gap: 5px;
     }
 }

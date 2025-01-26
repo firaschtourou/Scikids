@@ -1,30 +1,16 @@
 import React from 'react';
+import { useNavigate } from "react-router-dom";
+
 import styles from './Classes.module.css';
 import ClassCard from './ClassCard';
 import image from './Group 237658.png';
 
-const classesData = [
-    {
-        title: 'Classe 1ere',
-        tasks: 10,
-        percentage: 84,
-        color: 'blue'
-    },
-    {
-        title: 'Classe 4eme',
-        tasks: 10,
-        percentage: 84,
-        color: 'pink'
-    },
-    {
-        title: 'Classe 5eme',
-        tasks: 10,
-        percentage: 94,
-        color: 'green'
-    }
-];
-
 function Classes() {
+    const navigate = useNavigate();
+    const handleNavigation = (path) => {
+        navigate(path);
+      };
+
     return (
         <div className={styles.container}>
             <div className={styles.sidebarContent}>
@@ -38,11 +24,15 @@ function Classes() {
                     </div>
                     <nav className={styles.navigation}>
                         <button className={styles.navButton}>Classes</button>
+                        <div className={styles.logoutWrapper2}>
+                                      <img loading="lazy" src="https://cdn.builder.io/api/v1/image/assets/TEMP/f40b0737096ea942cae585838c8391211c10fd76ca8769a843e190a644c18cb4?placeholderIfAbsent=true&apiKey=7ac1e9db73ba42ec81c04ec38ddf53cb" alt="Logout icon" className={styles.logoutIcon2} />
+                                      <span tabIndex="0" role="button" className={styles.logoutText2}  onClick={() => handleNavigation('/')}>Log out</span>
+                                    </div>
                     </nav>
                 </div>
                 <main className={styles.mainContent}>
                     <div className={styles.header}>
-                        <div className={styles.greeting}>Hello Evano 👋🏼,</div>
+                        <div className={styles.greeting}>Hello Teacher 👋🏼,</div>
                         <div className={styles.searchBox}>
                             <img
                                 loading="lazy"
@@ -60,11 +50,11 @@ function Classes() {
                     <h1 className={styles.title}>Les Classes</h1>
                     <div className={styles.cardsContainer}>
                         <div className={styles.cardsGrid}>
-                            {classesData.map((classData, index) => (
-                                <div key={index} className={styles.column}>
-                                    <ClassCard {...classData} />
+                           
+                                <div  className={styles.column}>
+                                    <ClassCard  />
                                 </div>
-                            ))}
+                           
                         </div>
                     </div>
                     <div className={styles.containerimg}>

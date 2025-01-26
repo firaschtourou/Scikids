@@ -1,24 +1,51 @@
 import React, { useState } from "react";
 import { InputField } from "./components/InputField";
 import { useNavigate } from "react-router-dom"; // Import du hook useNavigate
+import axios from "axios"; // Import d'Axios pour les requêtes HTTP
 import styles from "./LoginTeacher.module.css";
 
 export const LoginTeacher = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const navigate = useNavigate(); // Initialisation du hook useNavigate
-
-  const handleSubmit = (e) => {
+  const [errorMessage, setErrorMessage] = useState("");
+  const navigate = useNavigate();
+  const handleSubmit = async (e) => {
     e.preventDefault();
-
-    // Logique de validation ou d'authentification
-    if (email && password) {
-      // Redirige vers la page Classes après un login réussi
-      navigate("/classes");
-    } else {
-      alert("Veuillez remplir tous les champs !");
+  
+    if (!email || !password) {
+      setErrorMessage("Veuillez remplir tous les champs !");
+      return;
+    }
+  
+    try {
+      const response = await axios.post(
+        "http://localhost:5000/api/login",
+        { email, password },
+        {
+          withCredentials: true,
+          headers: {
+            "Content-Type": "application/json",
+          },
+        }
+      );
+  
+      if (response.data.success) {
+        // Stocker les classes et le nom de l'enseignant dans le localStorage
+        localStorage.setItem("classes", JSON.stringify(response.data.classes));
+        localStorage.setItem("teacherName", response.data.teacherName); // Enregistrer le nom de l'enseignant
+        navigate(response.data.redirectUrl);
+      } else {
+        setErrorMessage(response.data.message || "Identifiants incorrects.");
+      }
+    } catch (error) {
+      console.error("Erreur lors de la connexion :", error);
+      setErrorMessage(
+        error.response?.data?.message || "Une erreur est survenue. Réessayez."
+      );
     }
   };
+  
+
 
   return (
     <div className={styles.loginContainer}>
@@ -56,6 +83,10 @@ export const LoginTeacher = () => {
               onChange={(e) => setPassword(e.target.value)}
               id="password"
             />
+
+            {errorMessage && (
+              <div className={styles.errorMessage}>{errorMessage}</div>
+            )}
 
             <div className={styles.rememberMeSection}>
               <div className={styles.rememberMeWrapper}>

@@ -21,8 +21,8 @@ export const DashboardAjouterChapiter = () => {
         <div className={styles.sidebar}>
           <div className={styles.profileSection}>
             <div className={styles.profileImage} />
-            <div className={styles.userName}>Samantha</div>
-            <div className={styles.userEmail}>samantha@email.com</div>
+            <div className={styles.userName}>Root</div>
+            <div className={styles.userEmail}>Scikids@gmail.com</div>
           </div>
           <nav className={styles.navigation}>
             <button
@@ -55,11 +55,15 @@ export const DashboardAjouterChapiter = () => {
             >
               Quiz
             </button>
+             <div className={styles.logoutWrapper1}>
+                          <img loading="lazy" src="https://cdn.builder.io/api/v1/image/assets/TEMP/f40b0737096ea942cae585838c8391211c10fd76ca8769a843e190a644c18cb4?placeholderIfAbsent=true&apiKey=7ac1e9db73ba42ec81c04ec38ddf53cb" alt="Logout icon" className={styles.logoutIcon1} />
+                          <span tabIndex="0" role="button" className={styles.logoutText1} onClick={() => handleNavigation('/')}>Log out</span>
+                        </div>
           </nav>
         </div>
         <main className={styles.mainContent}>
           <header className={styles.header}>
-            <h1 className={styles.greeting}>Hello Evano 👋🏼</h1>
+            <h1 className={styles.greeting}>Hello Admin 👋🏼</h1>
             <div className={styles.searchBox}>
               <img
                 src="https://cdn.builder.io/api/v1/image/assets/TEMP/f2a2d5994f3e7591026d17b75e05a400996b2106b14f2cd9dad3595ff535358b?placeholderIfAbsent=true&apiKey=5a8b57bfa53549b49da7230dbeeac956"
@@ -76,13 +80,13 @@ export const DashboardAjouterChapiter = () => {
           </header>
 
           <form className={styles.formContainer}>
+            
+          
             <div className={styles.formField}>
-              <SelectField label="Chapter name" required={true} />
-            </div>
-            <div className={styles.formField}>
-              <SelectField label="Age level" required={true} />
-            </div>
+            
+            
             <ChapiterBuilder />
+            </div>
           </form>
         </main>
       </div>

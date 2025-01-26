@@ -1,8 +1,6 @@
-/* Styling the entire header */
 .landingPage {
   z-index: 2;
   position: relative;
-
 }
 
 .header {
@@ -18,10 +16,9 @@
 }
 
 .head {
-  margin-top: -14px;
+  margin-top: -15px;
   z-index: 2;
   width: 100%;
-
 }
 
 /* Styling the logo */
@@ -33,15 +30,15 @@
 
 /* Styling the navigation menu */
 .navbar {
-  flex-grow: 1;
   display: flex;
-  justify-content: center;
-  z-index: 2;
+  align-items: center;
+  justify-content: space-between;
+  flex-grow: 1;
 }
 
 .navbar ul {
-  list-style: none;
   display: flex;
+  list-style: none;
   gap: 50px;
   margin: 0;
   padding: 0;
@@ -49,34 +46,15 @@
 
 .navbar .item {
   font-size: 25px;
-  gap: 25px;
   cursor: pointer;
   transition: color 0.3s ease;
 }
 
-.navbar .item:hover {
-  color: #f1c40f;
-}
-
-/* Language dropdown */
-.language-dropdown {
-  border: none;
-  background-color: transparent;
-  font-size: 25px;
-  color: #fff;
-  padding: 5px;
-  cursor: pointer;
-  outline: none;
-}
-
-.language-dropdown:hover {
-  color: #f1c40f;
-}
-
-/* Styling the social media icons */
 .icon {
   display: flex;
   gap: 15px;
+  margin-left: 20px;
+  /* Ajustez l'espace entre les icônes et le menu */
 }
 
 .icon img {
@@ -91,49 +69,68 @@
   transform: scale(1.1);
 }
 
+.navbar .item:hover {
+  color: #f1c40f;
+}
+
+/* Language dropdown */
+.languageDropdown {
+  border: none;
+  background-color: transparent;
+  font-size: 25px;
+  color: #fff;
+  padding: 5px;
+  cursor: pointer;
+  outline: none;
+}
+
+.languageDropdown:hover {
+  color: #f1c40f;
+}
+
 /* Ensuring responsiveness */
 @media (max-width: 1024px) {
 
   /* For tablets and below */
   .header {
-    flex-wrap: wrap;
-    text-align: center;
-    padding: 20px;
+      flex-wrap: wrap;
+      text-align: center;
+      padding: 20px;
   }
 
   .navbar {
-    order: 2;
-    margin: 10px 0;
-    width: 100%;
-    justify-content: center;
+      order: 2;
+      margin: 10px 0;
+      width: 100%;
+      justify-content: center;
   }
 
   .icon {
-    order: 3;
-    justify-content: center;
+      order: 3;
+      justify-content: center;
   }
 
   .Logo {
-    order: 1;
-    margin-bottom: 10px;
-    height: 50px;
+      order: 1;
+      margin-bottom: 10px;
+      height: 50px;
   }
 
   .navbar ul {
-    gap: 30px;
+      gap: 30px;
   }
 
   .navbar .item {
-    font-size: 20px;
+      font-size: 20px;
   }
 
-  .language-dropdown {
-    font-size: 20px;
+  .languageDropdown {
+      font-size: 20px;
   }
 
   .icon img {
-    height: 30px;
-    width: 30px;
+      height: 30px;
+      width: 30px;
   }
 }
 
@@ -141,44 +138,41 @@
 
   /* For smaller tablets and phones */
   .header {
-    flex-direction: column;
-    text-align: center;
-    padding: 15px;
+      flex-direction: column;
+      text-align: center;
+      padding: 15px;
   }
 
   .navbar {
-    order: 2;
-    margin: 10px 0;
-    width: 100%;
-  }
-
-  .icon {
-    order: 3;
-    justify-content: center;
-    margin-top: 10px;
-  }
-
-  .Logo {
-    order: 1;
-    margin-bottom: 15px;
-    height: 50px;
+      flex-wrap: wrap;
   }
 
   .navbar ul {
-    flex-direction: column;
-    gap: 20px;
+      width: 100%;
+      justify-content: center;
+  }
+
+  .icon {
+      margin-top: 10px;
+      justify-content: center;
+  }
+
+  .Logo {
+      order: 1;
+      margin-bottom: 15px;
+      height: 50px;
   }
 
   .navbar .item {
-    font-size: 18px;
+      font-size: 18px;
   }
 
-  .language-dropdown {
-    font-size: 18px;
+  .languageDropdown {
+      font-size: 18px;
   }
 
   .icon img {
-    height: 28px;
-    width: 28px;
+      height: 28px;
+      width: 28px;
   }
 }
