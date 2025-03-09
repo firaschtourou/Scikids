@@ -41,7 +41,7 @@ function App() {
   )
 }
 
-export default App */}
+export default App*/}
 
 {/*import React from "react";
 import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
@@ -116,6 +116,8 @@ import Dashboard from "./assets/KidsPages/KidsPages/Dashbord/Dashbord";
 import Consulter from "./assets/KidsPages/KidsPages/Consulter/Consulter";
 import QuizKids from "./assets/KidsPages/KidsPages/QuizKid/DashboradQuiz";
 import VoirCours from "./assets/KidsPages/KidsPages/VoirCours/VoirCours";
+import Blockly from "./assets/KidsPages/KidsPages/Blockley/Blockly";
+
 function App() {
   return (
     <>
@@ -134,6 +136,7 @@ function App() {
         <Route path="/coursKids" element={<Consulter />} />
         <Route path="/quizkid" element={<QuizKids />} />
         <Route path="/voircours" element={<VoirCours />} />
+
         </Routes>
       </Router>
 
